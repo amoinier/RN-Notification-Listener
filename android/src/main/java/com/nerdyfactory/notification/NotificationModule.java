@@ -42,7 +42,6 @@ public class NotificationModule extends ReactContextBaseJavaModule implements Ac
 
         thisApp = reactContext.getPackageName();
         smsApp = getDefaultSmsPackage();
-        //Log.d(TAG, "sms app: "+SmsApp);
     }
 
     @Override

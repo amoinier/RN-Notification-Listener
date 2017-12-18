@@ -5,7 +5,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.telephony.PhoneStateListener;
 import android.telephony.TelephonyManager;
-import android.util.Log;
 
 import com.facebook.react.bridge.WritableNativeMap;
 
@@ -18,7 +17,6 @@ public class CallListener extends BroadcastReceiver {
         telephony.listen(new PhoneStateListener() {
             @Override
             public void onCallStateChanged(int state, String incomingNumber) {
-                Log.d(TAG, "Call received: "+incomingNumber);
                 if (!incomingNumber.isEmpty()) {
                     WritableNativeMap params = new WritableNativeMap();
                     params.putString("app", "phone");
