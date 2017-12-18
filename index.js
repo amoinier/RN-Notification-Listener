@@ -2,6 +2,7 @@ import {NativeModules, DeviceEventEmitter} from 'react-native';
 
 const eventsMap = {
     notification: 'notificationReceived',
+    notificationDeleted: 'notificationDeleted',
     //installedApps: 'installedApps',
 };
 const NotificationModule = NativeModules.NotificationModule;

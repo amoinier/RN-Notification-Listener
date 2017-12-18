@@ -19,6 +19,8 @@ public class NotificationListener extends NotificationListenerService {
 
         WritableNativeMap params = new WritableNativeMap();
         params.putString("text", sbn.getNotification().tickerText.toString());
+        params.putString("color", Integer.toHexString(sbn.getNotification().color).substring(2));
+        params.putString("info", sbn.getNotification().toString());
 
         String app = sbn.getPackageName();
         if (app.equals(NotificationModule.smsApp)) {
@@ -31,5 +33,25 @@ public class NotificationListener extends NotificationListenerService {
     }
 
     @Override
-    public void onNotificationRemoved(StatusBarNotification sbn) {}
+    public void onNotificationRemoved(StatusBarNotification sbn) {
+        Log.d(TAG, "Notification deleted: "+sbn.getPackageName()+":"+sbn.getNotification().tickerText);
+
+        if (sbn.getNotification().tickerText == null) {
+            return;
+        }
+
+        WritableNativeMap params = new WritableNativeMap();
+        params.putString("text", sbn.getNotification().tickerText.toString());
+        params.putString("color", Integer.toHexString(sbn.getNotification().color).substring(2));
+        params.putString("info", sbn.getNotification().toString());
+
+        String app = sbn.getPackageName();
+        if (app.equals(NotificationModule.smsApp)) {
+            params.putString("app", "sms");
+        } else {
+            params.putString("app", app);
+        }
+
+        NotificationModule.sendEvent("notificationDeleted", params);
+    }
 }
